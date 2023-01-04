@@ -1,6 +1,7 @@
 package com.ivanilson.gerenciamento.model;
 
 
+import com.ivanilson.gerenciamento.enums.TipoEndereco;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class Endereco {
 
     @Column(name = "cidade", nullable = false)
     private String cidade;
+
+    @Column(name = "tipo", nullable = false)
+    private TipoEndereco tipoEndereco;
 
     @ManyToOne
     @JoinColumn(name = "idpessoa", nullable = false)
