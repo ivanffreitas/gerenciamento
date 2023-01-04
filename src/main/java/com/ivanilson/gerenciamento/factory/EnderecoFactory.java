@@ -3,14 +3,15 @@ package com.ivanilson.gerenciamento.factory;
 import com.ivanilson.gerenciamento.model.Endereco;
 import com.ivanilson.gerenciamento.model.dto.EnderecoDto;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import javax.inject.Singleton;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Singleton
 public class EnderecoFactory {
 
     @Autowired
-    PessoaFactory factory;
+    private PessoaFactory factory;
 
     public EnderecoDto toEnderecoDto(Endereco endereco) {
         return 	EnderecoDto.builder()

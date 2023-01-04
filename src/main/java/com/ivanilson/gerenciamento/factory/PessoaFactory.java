@@ -3,10 +3,14 @@ package com.ivanilson.gerenciamento.factory;
 import com.ivanilson.gerenciamento.model.Pessoa;
 import com.ivanilson.gerenciamento.model.dto.PessoaDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
+import javax.inject.Singleton;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Singleton
+@Configuration("bean")
 public class PessoaFactory {
 
     @Autowired
@@ -21,7 +25,7 @@ public class PessoaFactory {
                 .build();
     }
 
-    public List<PessoaDto> toPessoaDto(List<Pessoa> pessoas){
+    public List<PessoaDto> toListPessoaDto(List<Pessoa> pessoas){
         return pessoas
                 .stream()
                 .map( this::toPessoaDto )
