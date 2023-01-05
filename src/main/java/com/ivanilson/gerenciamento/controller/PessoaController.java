@@ -1,6 +1,6 @@
 package com.ivanilson.gerenciamento.controller;
 
-import com.ivanilson.gerenciamento.model.dto.PessoaDto;
+import com.ivanilson.gerenciamento.dto.PessoaDto;
 import com.ivanilson.gerenciamento.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

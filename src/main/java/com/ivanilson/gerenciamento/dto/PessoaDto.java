@@ -1,4 +1,4 @@
-package com.ivanilson.gerenciamento.model.dto;
+package com.ivanilson.gerenciamento.dto;
 
 import lombok.*;
 
@@ -10,7 +10,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class PessoaDto {
 
     private Long id;

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
-    @Query("SELECT a FROM endereco a WHERE a.tipoEndereco = ?1  AND a.pessoa.id = ?2")
+    @Query("SELECT a FROM endereco a WHERE a.tipoEndereco = ?1 AND a.pessoa.id = ?2")
     Optional<Endereco> findByEndereco(TipoEndereco tipoEndereco, Long idPessoa);
 
     @Query("SELECT a FROM endereco a WHERE a.pessoa.id = ?1")

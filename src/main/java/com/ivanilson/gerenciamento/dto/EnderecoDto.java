@@ -1,4 +1,4 @@
-package com.ivanilson.gerenciamento.model.dto;
+package com.ivanilson.gerenciamento.dto;
 
 import com.ivanilson.gerenciamento.enums.TipoEndereco;
 import lombok.*;
@@ -8,7 +8,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class EnderecoDto {
 
     private Long id;

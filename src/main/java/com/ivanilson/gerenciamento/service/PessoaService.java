@@ -2,7 +2,7 @@ package com.ivanilson.gerenciamento.service;
 
 import com.ivanilson.gerenciamento.factory.PessoaFactory;
 import com.ivanilson.gerenciamento.model.Pessoa;
-import com.ivanilson.gerenciamento.model.dto.PessoaDto;
+import com.ivanilson.gerenciamento.dto.PessoaDto;
 import com.ivanilson.gerenciamento.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

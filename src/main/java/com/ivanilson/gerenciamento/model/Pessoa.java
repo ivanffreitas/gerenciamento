@@ -11,7 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "TB001_PESSOA")
+@Entity
+@Table(name = "TB001_PESSOA")
 public class Pessoa {
 
     @Id
