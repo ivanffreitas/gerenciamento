@@ -25,7 +25,7 @@ public class PessoaService {
         return pessoaFactory.toPessoaDto(pessoa);
     }
 
-    public List<PessoaDto> findAll() {
+    public List<PessoaDto> buscarTodos() {
         List<Pessoa> pessoas = repository.findAll();
         return pessoaFactory.toListPessoaDto(pessoas);
     }
@@ -36,9 +36,9 @@ public class PessoaService {
         return true;
     }
 
-    public Boolean alterar(PessoaDto pessoaDto){
+    public PessoaDto alterar(PessoaDto pessoaDto){
         buscarPorId(pessoaDto.getId());
-        repository.save(pessoaFactory.toPessoa(pessoaDto));
-        return true;
+        Pessoa pessoa = repository.save(pessoaFactory.toPessoa(pessoaDto));
+        return pessoaFactory.toPessoaDto(pessoa);
     }
 }

@@ -26,7 +26,7 @@ public class EnderecoService {
         pessoaService.buscarPorId(enderecoDto.getPessoa().getId());
         Endereco endereco = factory.toEndereco(enderecoDto);
 
-        enderecoRepository.findByEndereco(endereco.getTipoEndereco(), endereco.getPessoa().getId()).ifPresent(end -> {
+        enderecoRepository.findByTipoEnderecoAndPessoa(endereco.getTipoEndereco(), endereco.getPessoa().getId()).ifPresent(end -> {
             throw new IllegalArgumentException("Já existe um endereco principal");
         });
 

@@ -1,5 +1,6 @@
 package com.ivanilson.gerenciamento.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class PessoaDto {
 
     private Long id;
     private String nome;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate nascimento;
     private List<EnderecoDto> enderecos;
 
