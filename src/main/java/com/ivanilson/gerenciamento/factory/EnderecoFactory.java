@@ -16,13 +16,12 @@ public class EnderecoFactory {
 
      public EnderecoDto toEnderecoDto(Endereco endereco) {
         return 	EnderecoDto.builder()
-                .id(endereco.getId())
+                .idendereco(endereco.getIdendereco())
                 .logradouro(endereco.getLogradouro())
                 .cep(endereco.getCep())
                 .numero(endereco.getNumero())
                 .cidade(endereco.getCidade())
                 .tipoEndereco(endereco.getTipoEndereco())
-                .pessoa(factory.toPessoaDto(endereco.getPessoa()))
                 .build();
     }
 
@@ -35,13 +34,12 @@ public class EnderecoFactory {
 
     public Endereco toEndereco(EnderecoDto dto) {
         return 	Endereco.builder()
-                .id(dto.getId())
+                .idendereco(dto.getIdendereco())
                 .logradouro(dto.getLogradouro())
                 .cep(dto.getCep())
                 .numero(dto.getNumero())
                 .cidade(dto.getCidade())
                 .tipoEndereco(dto.getTipoEndereco())
-                .pessoa(factory.toPessoa(dto.getPessoa()))
                 .build();
     }
 

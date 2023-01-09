@@ -1,10 +1,14 @@
 package com.ivanilson.gerenciamento.service;
 
+import com.ivanilson.gerenciamento.dto.PessoaDto;
 import com.ivanilson.gerenciamento.enums.TipoEndereco;
 import com.ivanilson.gerenciamento.factory.EnderecoFactory;
+import com.ivanilson.gerenciamento.factory.PessoaFactory;
 import com.ivanilson.gerenciamento.model.Endereco;
 import com.ivanilson.gerenciamento.dto.EnderecoDto;
+import com.ivanilson.gerenciamento.model.Pessoa;
 import com.ivanilson.gerenciamento.repository.EnderecoRepository;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,46 +18,51 @@ import java.util.List;
 public class EnderecoService {
 
     @Autowired
-    EnderecoRepository enderecoRepository;
+    private EnderecoRepository enderecoRepository;
 
     @Autowired
-    EnderecoFactory factory;
+    private EnderecoFactory factory;
 
     @Autowired
-    PessoaService pessoaService;
+    private PessoaFactory pessoaFactory;
 
-    public Boolean inserir(EnderecoDto enderecoDto){
-        pessoaService.buscarPorId(enderecoDto.getPessoa().getId());
+    @Autowired
+    private PessoaService pessoaService;
+
+    public Boolean inserir(Long idpessoa, EnderecoDto enderecoDto){
+        PessoaDto pessoaDTO = pessoaService.buscarPorId(idpessoa);
+        enderecoDto.setPessoa(pessoaDTO);
         Endereco endereco = factory.toEndereco(enderecoDto);
+        endereco.setPessoa(pessoaFactory.toPessoa(pessoaDTO));
 
-        enderecoRepository.findByTipoEnderecoAndPessoa(endereco.getTipoEndereco(), endereco.getPessoa().getId()).ifPresent(end -> {
-            throw new IllegalArgumentException("Já existe um endereco principal");
-        });
-
+        if(endereco.getTipoEndereco() == TipoEndereco.PRINCIPAL){
+            enderecoRepository.findByTipoEnderecoAndPessoa(
+                    endereco.getTipoEndereco(), endereco.getPessoa()).ifPresent(end -> {
+                throw new IllegalArgumentException("Já existe um endereco principal");
+            });
+        }
         enderecoRepository.save(endereco);
 
         return true;
     }
 
-    public EnderecoDto buscarPorId(Long id){
-        Endereco endereco = enderecoRepository.findById(id).orElseThrow(() -> {
-            throw new IllegalArgumentException("Endereco não encontrada");
-        });
-        return factory.toEnderecoDto(endereco);
-    }
-
     public List<EnderecoDto> buscarPorIdPessoa(Long id){
-        pessoaService.buscarPorId(id);
-        List<Endereco> endereco = enderecoRepository.findByPessoa(id);
+        PessoaDto pessoaDto = pessoaService.buscarPorId(id);
+        Pessoa pessoa = pessoaFactory.toPessoa(pessoaDto);
+        List<Endereco> endereco = enderecoRepository.findByPessoa(pessoa);
         return factory.toListEnderecoDto(endereco);
     }
 
-    public List<EnderecoDto> enderecoPrincipaal(List<EnderecoDto> enderecoDto){
+    public List<EnderecoDto> enderecoPrincipaal(Long idpessoa, List<EnderecoDto> enderecoDto){
 
         validarEnderecos(enderecoDto);
+        PessoaDto pessoaDTO = pessoaService.buscarPorId(idpessoa);
 
         for (EnderecoDto dto: enderecoDto) {
-            enderecoRepository.save(factory.toEndereco(dto));
+            dto.setPessoa(pessoaDTO);
+            Endereco endereco = factory.toEndereco(dto);
+            endereco.setPessoa(pessoaFactory.toPessoa(pessoaDTO));
+            enderecoRepository.save(endereco);
         }
 
         return enderecoDto;

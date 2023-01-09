@@ -1,10 +1,12 @@
 package com.ivanilson.gerenciamento.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivanilson.gerenciamento.enums.TipoEndereco;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -16,14 +18,14 @@ import javax.persistence.*;
 public class Endereco {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idendereco")
-    private Long id;
+    private Long idendereco;
 
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
 
-    @Column(name = "cep", nullable = false)
+    @Column(name = "cep", nullable = false, length = 9)
     private String cep;
 
     @Column(name = "numero", nullable = false)
