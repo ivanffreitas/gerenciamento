@@ -1,5 +1,6 @@
 package com.ivanilson.gerenciamento.service;
 
+import com.ivanilson.gerenciamento.service.exceptions.ObjectnotFoundException;
 import com.ivanilson.gerenciamento.factory.PessoaFactory;
 import com.ivanilson.gerenciamento.model.Pessoa;
 import com.ivanilson.gerenciamento.dto.PessoaDto;
@@ -19,9 +20,9 @@ public class PessoaService {
     PessoaRepository repository;
 
     public PessoaDto buscarPorId(Long id){
-        Pessoa pessoa = repository.findById(id).orElseThrow(() -> {
-            throw new IllegalArgumentException("Pessoa não encontrada");
-        });
+        Pessoa pessoa = repository.findById(id).orElseThrow(() ->
+            new ObjectnotFoundException("Pessoa não encontrada " + id)
+        );
         return pessoaFactory.toPessoaDto(pessoa);
     }
 

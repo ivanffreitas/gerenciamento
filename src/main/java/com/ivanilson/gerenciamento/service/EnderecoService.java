@@ -2,13 +2,13 @@ package com.ivanilson.gerenciamento.service;
 
 import com.ivanilson.gerenciamento.dto.PessoaDto;
 import com.ivanilson.gerenciamento.enums.TipoEndereco;
+import com.ivanilson.gerenciamento.service.exceptions.DataIntegrityViolationException;
 import com.ivanilson.gerenciamento.factory.EnderecoFactory;
 import com.ivanilson.gerenciamento.factory.PessoaFactory;
 import com.ivanilson.gerenciamento.model.Endereco;
 import com.ivanilson.gerenciamento.dto.EnderecoDto;
 import com.ivanilson.gerenciamento.model.Pessoa;
 import com.ivanilson.gerenciamento.repository.EnderecoRepository;
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class EnderecoService {
         if(endereco.getTipoEndereco() == TipoEndereco.PRINCIPAL){
             enderecoRepository.findByTipoEnderecoAndPessoa(
                     endereco.getTipoEndereco(), endereco.getPessoa()).ifPresent(end -> {
-                throw new IllegalArgumentException("Já existe um endereco principal");
+                throw new DataIntegrityViolationException("Já existe um endereco principal");
             });
         }
         enderecoRepository.save(endereco);
@@ -76,7 +76,7 @@ public class EnderecoService {
             }
         }
         if(qtd > 1){
-            throw new IllegalArgumentException("Não é possível ter dois endereços principais para a mesma pessoa");
+            throw new DataIntegrityViolationException("Não é possível ter dois endereços principais para a mesma pessoa");
         }
     }
 
