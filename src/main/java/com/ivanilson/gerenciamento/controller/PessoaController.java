@@ -31,7 +31,7 @@ public class PessoaController {
         return ResponseEntity.ok().body(pessoaDtos);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping
     public ResponseEntity<PessoaDto> update(@RequestBody PessoaDto pessoaDto){
         return ResponseEntity.ok().body(service.alterar(pessoaDto));
     }

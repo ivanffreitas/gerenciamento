@@ -37,7 +37,7 @@ public class PessoaService {
         return true;
     }
 
-    public PessoaDto alterar(PessoaDto pessoaDto){
+    public PessoaDto alterar(PessoaDto pessoaDto ){
         buscarPorId(pessoaDto.getId());
         Pessoa pessoa = repository.save(pessoaFactory.toPessoa(pessoaDto));
         return pessoaFactory.toPessoaDto(pessoa);

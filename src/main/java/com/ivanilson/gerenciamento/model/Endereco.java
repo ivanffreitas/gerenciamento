@@ -1,12 +1,9 @@
 package com.ivanilson.gerenciamento.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivanilson.gerenciamento.enums.TipoEndereco;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Getter
 @Setter
